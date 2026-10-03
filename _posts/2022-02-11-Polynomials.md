@@ -8,10 +8,8 @@ tags:
   - Algebra
 ---
 
-This post is the first in a sequence of 3 posts leading up to proving a famous result about Z/pZ \* being cyclic.
+This is part 2 of a three-part series, written in my junior year of high school, that works up to proving that (Z/pZ)<sup>×</sup> is cyclic: the multiplicative group of integers mod a prime has a generator. I was teaching myself group theory at the time and worked out the route on my own, so the proofs are mine rather than the textbook's.
 
-It was written when I was a new Junior in HS and I am now writing this extra excerpt as a sophomore in college.
+This part shows how polynomials factor over an arbitrary field, covers minimal polynomials and divisibility, and proves the key fact for part 3: a nonzero polynomial has no more roots than its degree.
 
-In this post I show important results about how polynomials can still be factored in arbitrary felids, polynomial divisibility, and especially that Polynomials can have no more solutions than their degree.
-
-[Go To Post](/files/Polynomials.pdf)
+[Read the write-up (PDF)](/files/Polynomials.pdf)
