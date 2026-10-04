@@ -21,6 +21,15 @@ We will start with a complex value function specified by the user f(z). And then
 
 After doing this with every pixel the image will be warped in a way according to the complex function given. From this different properties of the function can be seen in how it warps the image. Continuous functions will smoothly stretch and warp the image. where discontinuous functions will show sharp discontinuities in the output image.
 
-# Find and try it out
+# Try it here
+
+This is a live version that runs in your browser. Type any function of z, or pick a preset. The variable t counts seconds, so expressions with t animate. Switch the source to domain colouring, or to a photo (mine by default; click Photo again to upload your own).
+
+One difference from the original: here each output pixel z is coloured by whatever sits at f(z) in the source. Pulling back like this means every pixel gets a colour, while pushing each source pixel forward, as the original program does, leaves gaps wherever f stretches the image.
+
+<div class="mathfig" data-complex-map data-expr="(z - 0.5) / (1 - 0.5z)"></div>
+<script src="/assets/js/complex-map.js" defer></script>
+
+# Find the original
 
 All the code, how to run it, and demos are on my [github post](https://github.com/patrickDugan04/complex-image-mapping)

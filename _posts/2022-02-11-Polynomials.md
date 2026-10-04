@@ -12,4 +12,6 @@ This is part 2 of a three-part series, written in my junior year of high school,
 
 This part shows how polynomials factor over an arbitrary field, covers minimal polynomials and divisibility, and proves the key fact for part 3: a nonzero polynomial has no more roots than its degree.
 
+Part 3 ends with an interactive version you can play with: [watch (Z/pZ)<sup>×</sup> turn out cyclic](/posts/2022/02/Fields/).
+
 [Read the write-up (PDF)](/files/Polynomials.pdf)

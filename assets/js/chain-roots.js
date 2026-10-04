@@ -275,3 +275,48 @@
   draw();
   requestAnimationFrame(tick);
 })();
+
+/*
+ * Gallery thumbnail: roots of random graded posets piling up inside [-4, 0].
+ */
+(function () {
+  "use strict";
+  var C = window.ChainRoots;
+  if (!C) return;
+  var MW = (window.MathWidgets = window.MathWidgets || {});
+  MW.chainRoots = {
+    thumb: function (cv) {
+      var roots = [], seed = 1000, lastDraw = -1;
+      return function (sec) {
+        var due = Math.floor(sec * 6);
+        while (lastDraw < due) {
+          lastDraw++;
+          var P = C.randomGraded(C.mulberry32(seed++), { minRanks: 3, maxRanks: 9, maxWidth: 5, density: 0.3 });
+          C.polyRoots(C.chainPolynomial(P)).forEach(function (r) { roots.push(r); });
+          if (roots.length > 500) roots.splice(0, roots.length - 500);
+        }
+        var dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+        if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+        var ctx = cv.getContext("2d");
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, w, h);
+        var x0 = -5, x1 = 0.6, pad = 8, sx = (w - 2 * pad) / (x1 - x0);
+        function X(x) { return pad + (x - x0) * sx; }
+        function Y(y) { return h / 2 - y * sx; }
+        ctx.fillStyle = "rgba(82,173,200,0.10)";
+        ctx.fillRect(X(-4), 0, X(0) - X(-4), h);
+        ctx.strokeStyle = "#bdc1c4"; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(0, Y(0) + 0.5); ctx.lineTo(w, Y(0) + 0.5); ctx.stroke();
+        ctx.strokeStyle = "#52adc8"; ctx.setLineDash([3, 3]);
+        ctx.beginPath(); ctx.moveTo(X(-4) + 0.5, 0); ctx.lineTo(X(-4) + 0.5, h); ctx.stroke();
+        ctx.setLineDash([]);
+        roots.forEach(function (r) {
+          ctx.beginPath();
+          if (r[1] === 0) { ctx.fillStyle = "rgba(82,173,200,0.45)"; ctx.arc(X(r[0]), Y(0), 2.2, 0, 2 * Math.PI); }
+          else { ctx.fillStyle = "rgba(122,130,136,0.3)"; ctx.arc(X(r[0]), Y(r[1]), 1.4, 0, 2 * Math.PI); }
+          ctx.fill();
+        });
+      };
+    },
+  };
+})();

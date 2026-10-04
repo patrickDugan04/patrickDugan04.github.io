@@ -94,9 +94,22 @@
       var w = toW(pt.z);
       var wm = Math.hypot(w.x, w.y);
       if (pt.age > pt.life || wm < 0.015 || wm > 70 || !isFinite(wm)) { spawn(pt, false); return; }
-      pt.z = fromW(mul(w, k));
+      var w2 = mul(w, k);
+      pt.z = fromW(w2);
       if (Math.abs(pt.z.x) > reach || Math.abs(pt.z.y) > reach) { spawn(pt, false); return; }
-      pt.trail.push(toScreen(pt.z));
+      var sc = toScreen(pt.z);
+      if (sound.on && sc[0] > 0 && sc[0] < W && sc[1] > 0 && sc[1] < H) {
+        // Notes: a particle crossing the ray arg w = 0 (pitch from its orbit
+        // |w|), or landing near the attracting point (pitch from arg w).
+        var a0 = Math.atan2(w.y, w.x), a1 = Math.atan2(w2.y, w2.x), wm2 = Math.hypot(w2.x, w2.y);
+        if (a0 < 0 && a1 >= 0 && a1 - a0 < 1) sound.note(0.5 + Math.log(wm2) / 5, sc, "auto");
+        else if (wm >= 0.12 && wm2 < 0.12) sound.note((a1 / (2 * Math.PI)) + 0.5, sc, "auto");
+        // Strum: a particle entering the pointer's circle.
+        var inside = !!pointer && !dragging && Math.hypot(sc[0] - pointer[0], sc[1] - pointer[1]) < STRUM_R;
+        if (inside && !pt.inside) sound.note(0.5 + Math.log(wm2) / 5, sc, "strum");
+        pt.inside = inside;
+      }
+      pt.trail.push(sc);
       if (pt.trail.length > TRAIL) pt.trail.shift();
     });
     return l;
@@ -163,12 +176,91 @@
     ctx.clearRect(0, 0, W, H);
     drawNet();
     drawParticles();
+    drawRipples(lastDt);
     drawFixed();
     if (readout) {
       var kAbs = Math.exp(l.rho), kArg = l.theta;
       readout.textContent =
         classify(l) + " · k = e^λ, |k| = " + kAbs.toFixed(2) + ", arg k = " + kArg.toFixed(2);
     }
+  }
+
+  // ---- optional sound (MathSound) ---------------------------------------------
+  // Off until the visitor asks. Particles pluck notes as they complete an orbit
+  // or land on the attracting point; the pointer strums particles it passes
+  // over; the drone's chord follows the flow type and the distance between the
+  // fixed points, panned toward each point.
+  var MS = window.MathSound;
+  var sound = { on: false, ripples: [], drone: null, key: "", frames: 0 };
+  var buckets = { auto: { n: 3, rate: 4, max: 3 }, strum: { n: 3, rate: 10, max: 3 } };
+  var pointer = null;
+
+  sound.note = function (pos, sc, kind) {
+    if (!MS || !MS.running()) return;
+    var bk = buckets[kind], now = performance.now() / 1000;
+    bk.n = Math.min(bk.max, bk.n + (now - (bk.last || now)) * bk.rate);
+    bk.last = now;
+    if (bk.n < 1 || (kind === "auto" && Math.random() < 0.35)) return;
+    bk.n -= 1;
+    var idx = Math.floor(Math.min(0.999, Math.max(0, pos)) * 15);
+    MS.pluck(MS.degree(idx + 3), { pan: (sc[0] / W) * 1.4 - 0.7, gain: kind === "strum" ? 0.085 : 0.065 });
+    sound.ripples.push({ x: sc[0], y: sc[1], age: 0, strong: kind === "strum" });
+  };
+
+  var CHORDS = {           // pentatonic degrees, 0 = D
+    elliptic: [0, 3, 5, 7],
+    loxodromic: [0, 2, 5, 8],
+    hyperbolic: [0, 3, 4, 6],
+    "parabolic-ish": [0, 3, 5, 6],
+  };
+  sound.update = function (l, active) {
+    if (!MS || !sound.on) return;
+    MS.setVisible(active);
+    if (!active || !l) return;
+    if (!sound.drone) sound.drone = MS.drone();
+    var d = Math.hypot(p.x - q.x, p.y - q.y);
+    var shift = Math.max(-3, Math.min(4, Math.round((d - 1.9) * 2)));
+    var type = classify(l), key = type + shift;
+    var sp = toScreen(p), sq = toScreen(q);
+    var pans = [sp[0] / W * 1.6 - 0.8, sq[0] / W * 1.6 - 0.8, sp[0] / W * 1.6 - 0.8, sq[0] / W * 1.6 - 0.8];
+    if (key !== sound.key || sound.frames++ % 8 === 0) {
+      var freqs = CHORDS[type].map(function (g) { return MS.degree(g + shift - 5); });
+      sound.drone.setChord(freqs, pans, key !== sound.key ? (dragging ? 0.08 : 0.7) : undefined);
+      sound.key = key;
+    }
+    sound.drone.setBrightness(0.25 + 0.45 * Math.min(1, Math.abs(l.theta) / 0.85) + (dragging ? 0.3 : 0));
+  };
+
+  function drawRipples(dt) {
+    sound.ripples = sound.ripples.filter(function (r) { r.age += dt; return r.age < 0.7; });
+    sound.ripples.forEach(function (r) {
+      var f = r.age / 0.7;
+      ctx.strokeStyle = "rgba(82,173,200," + ((1 - f) * (r.strong ? 0.9 : 0.6)).toFixed(3) + ")";
+      ctx.lineWidth = r.strong ? 1.6 : 1.2;
+      ctx.beginPath(); ctx.arc(r.x, r.y, 2 + f * (r.strong ? 16 : 11), 0, 2 * Math.PI); ctx.stroke();
+    });
+    if (sound.on && pointer && !dragging) {
+      ctx.strokeStyle = "rgba(122,130,136,0.35)"; ctx.lineWidth = 1;
+      ctx.setLineDash([2, 3]);
+      ctx.beginPath(); ctx.arc(pointer[0], pointer[1], STRUM_R, 0, 2 * Math.PI); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+  var STRUM_R = 26;
+
+  if (MS && MS.supported) {
+    var soundBtn = MS.toggleButton(function (on) {
+      sound.on = on;
+      soundBtn.title = on ? "Move over the flow to strum it; drag a fixed point to bend the chord" : "Turn on sound";
+      if (hint) hint.hidden = !on;
+    });
+    soundBtn.title = "Turn on sound";
+    cv.parentNode.insertBefore(soundBtn, cv);
+    var hint = document.createElement("span");
+    hint.className = "mathfig__hint";
+    hint.textContent = "Move over the flow to strum it \u00b7 drag a fixed point to bend the chord";
+    hint.hidden = true;
+    cv.parentNode.insertBefore(hint, cv);
   }
 
   // Click or drag moves whichever fixed point is nearer.
@@ -190,8 +282,13 @@
     var h = pick(e); dragging = h.which; place(h.which, h.z);
     cv.setPointerCapture(e.pointerId);
   });
-  cv.addEventListener("pointermove", function (e) { if (dragging) place(dragging, pick(e).z); });
-  cv.addEventListener("pointerup", function () { dragging = null; });
+  cv.addEventListener("pointermove", function (e) {
+    var r = cv.getBoundingClientRect();
+    pointer = [e.clientX - r.left, e.clientY - r.top];
+    if (dragging) place(dragging, pick(e).z);
+  });
+  cv.addEventListener("pointerup", function (e) { dragging = null; if (e.pointerType === "touch") pointer = null; });
+  cv.addEventListener("pointerleave", function () { pointer = null; });
   cv.addEventListener("dblclick", function () { userMoved = false; });
 
   var visible = true;
@@ -199,12 +296,15 @@
     new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(cv);
   }
 
-  var last = null;
+  var last = null, lastDt = 0;
   function frame(ts) {
     if (last === null) last = ts;
     var dt = Math.min(0.05, (ts - last) / 1000);
     last = ts;
-    if (visible && !document.hidden) render(step(dt));
+    lastDt = dt;
+    var active = visible && !document.hidden;
+    if (active) { var l = step(dt); render(l); sound.update(l, true); }
+    else sound.update(null, false);
     requestAnimationFrame(frame);
   }
 
