@@ -14,11 +14,11 @@ redirect_from:
 <script src="/assets/js/mathsound.js" defer></script>
 <script src="/assets/js/mobius-flow.js" defer></script>
 
-I'm Patrick Dugan, a student at the University of Pennsylvania in the submatriculation program: an M.S.E. and B.S.E. in Computer Science and a B.A. in Mathematics, expected December 2027. My work sits where math and CS meet: proving things about combinatorial objects, and building systems that use machine learning and compilers.
+I'm Patrick Dugan, a student at the University of Pennsylvania in the submatriculation program: an M.S.E. and B.S.E. in Computer Science and a B.A. in Mathematics, expected December 2027. I work on AI, usually with a proof and a prototype going at the same time. This summer at Concurrent EDA I built an LLM agent that designs FPGA hardware from C code, along with the benchmark used to evaluate it, and the prototype was chosen for production. On my own I'm building neural networks that compile down to logic circuits, so what they learn can be checked exactly. ([Resume, PDF](/files/Patrick_Dugan_Resume.pdf))
 
 ## Research
 
-**Real roots of chain polynomials.** My preprint [*Root Bounds for Chain Polynomials Beyond the Cohen–Macaulay World*](/publication/2026-10-03-Root-Bounds-For-Chain-Polynomials) proves that every finite graded poset has all the real roots of its chain polynomial in [−4, 0], and that the constant 4 is sharp. The usual tools for bounds like this are topological (shellability, Cohen–Macaulayness, h-vectors), and graded posets need not satisfy them. The paper uses a sign condition on the inverse of I + aA instead, which can be checked one pair of vertices at a time. The same idea gives shorter intervals for subspace lattices and for Eulerian and k-Eulerian posets, and it even covers relations that aren't partial orders, such as chains of normal subgroups. Submitted to the *Electronic Journal of Combinatorics*. ([PDF](/files/Dugan_chain_polynomial_root_bounds.pdf) · [watch the theorem run live](/publication/2026-10-03-Root-Bounds-For-Chain-Polynomials#explorer))
+**Real roots of chain polynomials.** My preprint [*Root Bounds for Chain Polynomials Beyond the Cohen–Macaulay World*](/publication/2026-10-03-Root-Bounds-For-Chain-Polynomials) proves that every finite graded poset has all the real roots of its chain polynomial in [−4, 0], and that the constant 4 is sharp. The usual tools for bounds like this are topological (shellability, Cohen–Macaulayness, h-vectors), and graded posets need not satisfy them. The paper uses a sign condition on the inverse of I + aA instead, which can be checked one pair of vertices at a time. The same idea gives shorter intervals for subspace lattices and for Eulerian and k-Eulerian posets, and it even covers relations that aren't partial orders, such as chains of normal subgroups. Preprint, 2026. ([PDF](/files/Dugan_chain_polynomial_root_bounds.pdf) · [watch the theorem run live](/publication/2026-10-03-Root-Bounds-For-Chain-Polynomials#explorer))
 
 ## Playground
 
@@ -39,13 +39,13 @@ Small interactive pieces from my research and writing. Hover to preview; click t
 
 ## Current interests
 
-- **Algebraic and enumerative combinatorics:** real-rootedness, Möbius functions, and the poset side of the paper above. The open case I keep returning to is the coprime graph on the integers.
-- **Learning theory:** the PAC model, VC dimension, and sample complexity. I'm taking Theory of Machine Learning with Michael Kearns this fall.
-- **Compilers for ML:** MLIR/LLVM tooling and LLM agents for hardware design ([Concurrent EDA, summer 2026](/portfolio/2026-fpga-agent/)), and [C2NN](/portfolio/2026-c2nn/), a compiler that turns C programs into neural networks.
-- **Machine perception:** projective geometry, camera models, and multi-view geometry.
+- **LLM agents:** building agents that use tools well, and evaluating them honestly. My [Concurrent EDA agent](/portfolio/2026-fpga-agent/) took C code to optimized hardware designs.
+- **Neurosymbolic AI:** models whose outputs can be verified. [Logic gate networks](/portfolio/2026-logic-gate-networks/) that compile to exact circuits, and [C2NN](/portfolio/2026-c2nn/), a compiler that turns C programs into neural networks.
+- **AI safety and rule-following:** getting models to obey rules exactly, and finding where rules can be gamed ([Ambi](/portfolio/2026-ambi/), a loophole finder for policies).
+- **Learning theory and combinatorics:** the PAC model, VC dimension, and sample complexity (I'm in Theory of Machine Learning with Michael Kearns this fall), plus real-rootedness and Möbius functions on posets.
 
 ## Elsewhere
 
-I TA CIS 1600 (discrete math) at Penn. Before that I was a machine learning engineer at Palm Cosmetics (computer vision) and a data science intern in CMU's REUSE program. The [blog](/year-archive/) has older writeups, mostly mathematical oddities from high school onward.
+I TA CIS 1600 (discrete math) at Penn. I was an AI engineering intern at Concurrent EDA (summer 2026), a machine learning engineer at Palm Cosmetics (computer vision, Dec 2025 – Jan 2026), and a data science research intern in CMU's REUSE program (summer 2025). The [blog](/year-archive/) has older writeups, mostly mathematical oddities from high school onward.
 
-Full details are on my [CV](/cv/).
+Full details are on my [CV](/cv/), or grab the [one-page resume (PDF)](/files/Patrick_Dugan_Resume.pdf).

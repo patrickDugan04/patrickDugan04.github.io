@@ -4,7 +4,7 @@ collection: publications
 permalink: /publication/2026-10-03-Root-Bounds-For-Chain-Polynomials
 excerpt: 'All real roots of the chain polynomial of every finite graded poset lie in [−4, 0]. The proof replaces shellability and h-vectors with a sign condition on a matrix inverse.'
 date: 2026-10-03
-venue: 'Preprint, submitted to the Electronic Journal of Combinatorics'
+venue: 'Preprint'
 paperurl: '/files/Dugan_chain_polynomial_root_bounds.pdf'
 citation: 'P. Dugan. &quot;Root bounds for chain polynomials beyond the Cohen–Macaulay world.&quot; Preprint, 2026.'
 ---
