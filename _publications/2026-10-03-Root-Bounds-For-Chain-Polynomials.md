@@ -1,26 +1,29 @@
 ---
-title: "Root Bounds for Chain Polynomials Beyond the Cohen–Macaulay World"
+title: "Sign Patterns of Möbius Functions and Positivity of Shifted Chain and Walk Polynomials"
 collection: publications
 permalink: /publication/2026-10-03-Root-Bounds-For-Chain-Polynomials
-excerpt: 'All real roots of the chain polynomial of every finite graded poset lie in [−4, 0]. The proof replaces shellability and h-vectors with a sign condition on a matrix inverse.'
+excerpt: 'All real roots of the chain polynomial of every finite graded poset lie in [−4, 0]. The proof replaces shellability and h-vectors with a sign pattern of the Möbius function, and finds the best constants for when that pattern holds.'
 date: 2026-10-03
-venue: 'Preprint'
+venue: 'Preprint (revised November 2026)'
 paperurl: '/files/Dugan_chain_polynomial_root_bounds.pdf'
-citation: 'P. Dugan. &quot;Root bounds for chain polynomials beyond the Cohen–Macaulay world.&quot; Preprint, 2026.'
+citation: 'P. Dugan. &quot;Sign Patterns of Möbius Functions and Positivity of Shifted Chain and Walk Polynomials.&quot; Preprint, 2026.'
 ---
 
 The chain polynomial of a finite poset counts its chains by size. Root bounds for it usually come from topology: shellability, Cohen–Macaulayness, and the h-vector. Graded posets need not be Cohen–Macaulay, so that route is closed for them.
 
-This paper uses a sign condition instead. Let A be the 0/1 matrix of the strict order relation, so (I + A)⁻¹ is the Möbius function. If the entries of (I + aA)⁻¹ alternate in sign according to some 2-coloring of the elements, then every walk-counting polynomial of the graph has all its real roots in [−a, 0]. A local condition, checked one pair of vertices at a time, certifies that sign pattern.
+This paper uses a sign pattern instead. Let A be the 0/1 matrix of the strict order relation, so (I + A)⁻¹ is the Möbius function. The same inverse makes sense for any acyclic directed graph. If the entries of (I + aA)⁻¹ alternate in sign according to some 2-coloring of the vertices, then every walk-counting polynomial of the graph has its real roots in [−a, 0]. So do all of its derivatives.
+
+The paper also settles when that sign pattern shows up, with the best possible constants.
 
 Main results:
 
-- [−4, 0] for the chain polynomial of **every finite graded poset**, with no minimum or maximum needed. The constant 4 is sharp.
-- [−4/(q+1), 0] for the subspace lattice L<sub>n</sub>(F<sub>q</sub>), a proper subinterval of the known [−1, 0] once q ≥ 4.
-- [−1, 0] for every finite Eulerian poset, and [−1/k, 0] for k-Eulerian posets, including Eulerian posets that are not Cohen–Macaulay.
-- [−4, 0] for chains of iterated proper normal subgroups of any finite group. Normality isn't transitive, so this relation has no order complex, and the method still applies.
+- A directed acyclic graph has the sign pattern at some scale exactly when its transitive reduction is bipartite, and then the scale κ = 4.7305… is enough. That constant is optimal.
+- For posets, the condition is that all maximal chains have sizes of the same parity. Then the scale 4cos²(π/(d+2)) is enough, where d is the length of the longest chain. That constant is optimal too.
+- So the chain polynomial of **every finite graded poset** has its real roots in [−4, 0]. No rank function or Cohen–Macaulay condition is needed.
+- Frobenius complexes of a numerical semigroup with odd generators get the same [−4, 0]. If the smallest generator is even, the real roots are unbounded below.
+- For graded posets, a rescaled h-vector is nonnegative. That can fail once gradedness is dropped.
 
-Root location also has a probabilistic reading: −c(−p) is the expected reduced Euler characteristic of a random induced subposet at density p.
+This is a revised version of the October 2026 preprint *Root Bounds for Chain Polynomials Beyond the Cohen–Macaulay World*.
 
 ## See it live {#explorer}
 

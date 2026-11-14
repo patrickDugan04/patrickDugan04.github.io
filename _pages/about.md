@@ -16,9 +16,15 @@ redirect_from:
 
 I'm Patrick Dugan, a student at the University of Pennsylvania in the submatriculation program: an M.S.E. and B.S.E. in Computer Science and a B.A. in Mathematics, expected December 2027. I work on AI, usually with a proof and a prototype going at the same time. This summer at Concurrent EDA I built an LLM agent that designs FPGA hardware from C code, along with the benchmark used to evaluate it, and the prototype was chosen for production. On my own I'm building neural networks that compile down to logic circuits, so what they learn can be checked exactly. ([Resume, PDF](/files/Patrick_Dugan_Resume.pdf))
 
+## Selected work
+
+- **[LLM agent for FPGA design](/portfolio/2026-fpga-agent/)** (Concurrent EDA, summer 2026). I pitched it and built it solo: C code in, optimized hardware designs out, with a 100+ task benchmark. 16× fewer tokens than an unassisted LLM, synthesizable output from 80% to 100%, and chosen for production.
+- **[Ambi](/portfolio/2026-ambi/)**, a neurosymbolic loophole finder for policies. LLMs turn rules into fuzzy logic and an exact solver searches for what they allow but shouldn't. 360/360 known loopholes found with 0 false positives on a public benchmark.
+- **[Logic gate networks](/portfolio/2026-logic-gate-networks/)** that compile to exact circuits, with a GF(2) solver for where gradient descent fails.
+
 ## Research
 
-**Real roots of chain polynomials.** My preprint [*Root Bounds for Chain Polynomials Beyond the Cohen–Macaulay World*](/publication/2026-10-03-Root-Bounds-For-Chain-Polynomials) proves that every finite graded poset has all the real roots of its chain polynomial in [−4, 0], and that the constant 4 is sharp. The usual tools for bounds like this are topological (shellability, Cohen–Macaulayness, h-vectors), and graded posets need not satisfy them. The paper uses a sign condition on the inverse of I + aA instead, which can be checked one pair of vertices at a time. The same idea gives shorter intervals for subspace lattices and for Eulerian and k-Eulerian posets, and it even covers relations that aren't partial orders, such as chains of normal subgroups. Preprint, 2026. ([PDF](/files/Dugan_chain_polynomial_root_bounds.pdf) · [watch the theorem run live](/publication/2026-10-03-Root-Bounds-For-Chain-Polynomials#explorer))
+**Sign patterns and root bounds.** My preprint [*Sign Patterns of Möbius Functions and Positivity of Shifted Chain and Walk Polynomials*](/publication/2026-10-03-Root-Bounds-For-Chain-Polynomials) proves that every finite graded poset has all the real roots of its chain polynomial in [−4, 0]. The usual tools for bounds like this are topological (shellability, Cohen–Macaulayness, h-vectors), and graded posets need not satisfy them. The paper uses a sign pattern of the Möbius function instead: when (I + aA)⁻¹ alternates in sign along a 2-coloring, every walk-counting polynomial has its real roots in [−a, 0]. It also works out exactly when that pattern holds, with optimal constants, and applies the result to numerical semigroups. Preprint, revised November 2026. ([PDF](/files/Dugan_chain_polynomial_root_bounds.pdf) · [watch the theorem run live](/publication/2026-10-03-Root-Bounds-For-Chain-Polynomials#explorer))
 
 ## Playground
 

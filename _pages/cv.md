@@ -20,10 +20,10 @@ Education
 
 Research
 ======
-* **Real root bounds for chain and walk-generating polynomials** (independent research, 2025–2026)
-  * Proved that a sign-alternation condition on (I + aA)⁻¹ for a weighted DAG confines all real roots of its walk-generating polynomials to [−a, 0].
-  * Consequences: a sharp [−4, 0] for the chain polynomial of every finite graded poset, [−4/(q+1), 0] for subspace lattices, and [−1/k, 0] for k-Eulerian posets. The proofs are elementary and avoid homological methods.
-  * Preprint, 2026 ([PDF](/files/Dugan_chain_polynomial_root_bounds.pdf)).
+* **Sign Patterns of Möbius Functions and Positivity of Shifted Chain and Walk Polynomials** (independent research, 2025–2026)
+  * Proved that when (I + aA)⁻¹ alternates in sign along a 2-coloring, every walk-counting polynomial of an acyclic digraph has its real roots in [−a, 0].
+  * Found exactly when that holds, with optimal constants (κ = 4.7305… for digraphs, 4cos²(π/(d+2)) for posets). Consequences: [−4, 0] for every finite graded poset, and for Frobenius complexes of numerical semigroups with odd generators. The proofs are elementary and avoid homological methods.
+  * Preprint, revised November 2026 ([PDF](/files/Dugan_chain_polynomial_root_bounds.pdf)).
 
 Experience
 ======
